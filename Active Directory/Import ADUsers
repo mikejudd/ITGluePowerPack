@@ -1,0 +1,3 @@
+Get-ADUser -Filter * -Properties * | ForEach-Object {
+    
+}
