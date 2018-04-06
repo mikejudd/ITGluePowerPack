@@ -145,4 +145,4 @@ Import-Module ITGlueAPI
 
 
 # Relace with your Organisation ID and Flexible Asset ID.
-addO365Users -organisationid 9999 -flexAssetId 9999
+addO365Users -organisationid 1234 -flexAssetId 5678
