@@ -1,5 +1,5 @@
 # UpstreamITGluePowerPack
-[Don't go mainstream, go Upstream!](https://en.upstream.se/)  
+Don't go mainstream, go [Upstream!](https://en.upstream.se/)  
 Checkout our [blogg](https://upstream.se/blogg/) or more specifically our [Kaseya VSA PowerPack](https://upstream.se/blogg/upstream-power-pack/). Sign up for it [here](http://go.upstream.se/guide-eng-power-pack).
 
 # What is Power Pack?
