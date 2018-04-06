@@ -1,5 +1,5 @@
 # UpstreamITGluePowerPack
-Don't go mainstream, go Upstream!
+Don't go mainstream, go Upstream!  
 https://upstream.se/blogg/
 
 # What is Power Pack?
