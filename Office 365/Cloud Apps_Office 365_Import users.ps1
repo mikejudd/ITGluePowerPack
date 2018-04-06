@@ -137,7 +137,7 @@ if(-not (Test-Path -path $path)) {
     $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
 }
 
-$credential = Import-CliXml -Path "$env:USERPROFILE\UpstreamPowerPack\credentials.xml"
+$credential = Import-CliXML -Path "$env:USERPROFILE\UpstreamPowerPack\credentials.xml"
 
 Connect-AzureAD -Credential $credential > $null
 
@@ -145,4 +145,4 @@ Import-Module ITGlueAPI
 
 
 # Relace with your Organisation ID and Flexible Asset ID.
-addO365Users -organisationid 1387150 -flexAssetId 67362
+addO365Users -organisationid 9999 -flexAssetId 9999
