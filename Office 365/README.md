@@ -16,3 +16,6 @@ Another version intended to be used with parter portal and this script: https://
 
 ### Office 365 as Flexible Asset v3.ps1  
 A short version for compact use.
+
+### Import Office365 contacts - OLD cmdlets.ps1  
+This script uses the old cmdlets. If you have those installed, this will work. It is a more hands-on version with error handling requiring input from the user is the matching is not exact.
