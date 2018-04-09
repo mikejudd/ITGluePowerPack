@@ -1,3 +1,5 @@
+![https://upstream.se](https://upstreamsoftware-my.sharepoint.com/:i:/g/personal/support_upstream_se/EXNojrNuSg5Du5x9WpOPeb4BFIZ0RBeFZITrosrZkp0H_w?e=jmdHpX)  
+  
 # ITGlue PowerPack  
 Check out our [blog](https://upstream.se/blogg/) and our [Kaseya VSA PowerPack](https://upstream.se/blogg/upstream-power-pack/). Sign up for it [here](http://go.upstream.se/guide-eng-power-pack).
 
