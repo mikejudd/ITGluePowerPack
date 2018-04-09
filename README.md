@@ -10,3 +10,6 @@ This is a repo with scripts made in Powershell aimed at importing data to [ITGlu
 
 # Free to use!
 You can take any code you find here and use as you like.
+
+# Confused?
+Confused about what to do or what each file does? Read the [wiki](https://github.com/UpstreamAB/ITGluePowerPack/wiki)!
