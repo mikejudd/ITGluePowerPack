@@ -1,4 +1,4 @@
-![https://upstream.se](https://upstream.se/wp-content/themes/UpStream/images/logo-top.png)  
+![Upstream logo](https://upstream.se/wp-content/themes/UpStream/images/logo-top.png)  
   
 # ITGlue PowerPack  
 Check out our [blog](https://upstream.se/blogg/) and our [Kaseya VSA PowerPack](https://upstream.se/blogg/upstream-power-pack/). Sign up for it [here](http://go.upstream.se/guide-eng-power-pack).
