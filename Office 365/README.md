@@ -1,2 +1,0 @@
-### Import Office365 contacts - OLD cmdlets.ps1  
-This script uses the old cmdlets. If you have those installed, this will work. It is a more hands-on version with error handling requiring input from the user is the matching is not exact.
