@@ -13,7 +13,7 @@ You can take any code you find here and use as you like.
 Confused about what to do or what each file does? Read the [wiki](https://github.com/UpstreamAB/ITGluePowerPack/wiki)!
 
 # Credits and references
-These scripts use powershellwrapper, created and maintained by [https://github.com/CalebAlbers](CalebAlbers). Thank you!
+These scripts use powershellwrapper, created and maintained by [CalebAlbers](https://github.com/CalebAlbers). Thank you!
 
 powershellwrapper: https://github.com/itglue/powershellwrapper
 ITGlue API documentation: https://api.itglue.com/developer
