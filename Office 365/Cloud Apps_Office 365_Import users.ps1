@@ -36,7 +36,6 @@ function addO365Users {
     $translatedSkuWithID = @{}
 
     # Get email from the asset
-
     $ITGlueAsset = Get-ITGlueFlexibleAssets -filter_organization_id $organisationid -filter_flexible_asset_type_id $flexAssetId
 
 
