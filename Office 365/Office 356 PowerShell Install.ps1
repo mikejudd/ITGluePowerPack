@@ -16,7 +16,7 @@ if(-not (Test-Path -path $path)) {
 
 Save-Module -Name PowerShellGet -Path $path
 
-Install-Module AzureADPreview
+Install-Module AzureAD
 
 $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will be saved for later use."
 
