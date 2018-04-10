@@ -15,5 +15,5 @@ Confused about what to do or what each file does? Read the [wiki](https://github
 # Credits and references
 These scripts use powershellwrapper, created and maintained by [CalebAlbers](https://github.com/CalebAlbers). Thank you!
 
-powershellwrapper: https://github.com/itglue/powershellwrapper
+powershellwrapper: https://github.com/itglue/powershellwrapper  
 ITGlue API documentation: https://api.itglue.com/developer
