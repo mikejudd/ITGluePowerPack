@@ -29,7 +29,7 @@ Write-Host "Deleting $PWD\ITGlueAPI.zip... " -NoNewline
 Remove-Item .\ITGlueAPI.zip
 Write-Host 'Complete!'
 Remove-Item .\powershellwrapper-master -Recurse
-Write-Host "Deleting $PWD\ITGlueAPI.zip... " -NoNewline
+Write-Host "Deleting $PWD\powershellwrapper-master... " -NoNewline
 Write-Host 'Complete!'
 Write-Host ''
 
