@@ -44,7 +44,7 @@ Add-ITGlueBaseURI
 Add-ITGlueAPIKey
 
 # Save API key for user
-Write-Host "Exporting settings..." -NoNewline
+Write-Host "Exporting settings... " -NoNewline
 Export-ITGlueModuleSettings
 Write-Host 'Complete!'
 
