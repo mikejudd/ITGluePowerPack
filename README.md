@@ -3,6 +3,9 @@
 # ITGlue PowerPack  
 Check out our [blog](https://upstream.se/blogg/) and our [Kaseya VSA PowerPack](https://upstream.se/blogg/upstream-power-pack/). Sign up for it [here](http://go.upstream.se/guide-eng-power-pack).
 
+# What is [ITGlue](https://itglue.com/)?
+>IT Glue™ is a proven, best practices-driven IT documentation platform packed with features designed to help you maximize the efficiency, transparency and consistency of your team. With at least 20% of your business productivity lost each day in search of vital information, let IT Glue secure this information and start Freeing Minds™.
+
 # What is Power Pack?
 Power Pack was originally created as a mean to get people started with scripting, agent procedures and reports in [Kaseya VSA](https://www.kaseya.com/products/vsa).  
   
