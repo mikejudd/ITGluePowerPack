@@ -23,5 +23,5 @@ Confused about what to do or what each file does? Read the [wiki](https://github
 # Credits and references
 These scripts use powershellwrapper, created and maintained by [https://github.com/CalebAlbers](CalebAlbers). Thank you!
 
-Wrapper: https://github.com/itglue/powershellwrapper
+Wrapper: https://github.com/itglue/powershellwrapper  
 ITGlue API documentation: https://api.itglue.com/developer
