@@ -78,8 +78,27 @@ function importO365Emails {
 $path = "$env:USERPROFILE\UpstreamPowerPack"
 
 if(-not (Test-Path -path $path\o365credentials.xml)) {
-    Write-Host "No credentials found, please enter manually."
-    Connect-AzureAD
+    # # READ THIS # READ THIS # READ THIS # #
+    #                                       #
+    # If you have not saved your office 365 #
+    # credentials, you need to enter them   #
+    # manually here.                        #
+    #                                       #
+    # If you do not enter username and      #
+    # password, the script will stop        #
+    #                                       #
+    # # READ THIS # READ THIS # READ THIS # #
+
+    $username = "YOUR OFFICE 365 EMAIL GOES HERE"
+    $password = ConvertTo-SecureString "YOUR OFFICE 365 PASSWORD GOES HERE"  -AsPlainText -Force
+
+    if($username -eq "YOUR OFFICE 365 EMAIL GOES HERE") {
+        exit
+    } else {
+        $credential = New-Object System.Management.Automation.PSCredential ($username, $password)
+        Connect-AzureAD -Credential $credential > $null
+    }
+
 } else {
     $credential = Import-CliXML -Path $path\o365credentials.xml
     Connect-AzureAD -Credential $credential > $null
