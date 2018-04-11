@@ -74,3 +74,13 @@ function importO365Emails {
 
     New-ITGlueContacts -data $body
 }
+
+$path = "$env:USERPROFILE\UpstreamPowerPack"
+
+if(-not (Test-Path -path $path\o365credentials.xml)) {
+    Write-Host "No credentials found, please enter manually."
+    Connect-AzureAD
+} else {
+    $credential = Import-CliXML -Path $path\o365credentials.xml
+    Connect-AzureAD -Credential $credential > $null
+}
