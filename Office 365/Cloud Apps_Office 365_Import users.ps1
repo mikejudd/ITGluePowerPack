@@ -56,7 +56,7 @@ function addO365Users {
     }
 
     # Get all contacts from ITGlue
-    $ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'total-count')).data | Where-Object { $_.attributes.'organization-id' -eq $organisationid})
+    $ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'total-count')).data | Where-Object {$_.attributes.'organization-id' -eq $organisationid})
 
 
     foreach($ITGContact in $ITGlueContacts) {
