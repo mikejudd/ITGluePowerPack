@@ -129,17 +129,12 @@ function addO365Users {
 $path = "$env:USERPROFILE\UpstreamPowerPack"
 
 if(-not (Test-Path -path $path)) {
-    New-Item $path -ItemType Directory | %{$_.Attributes = "hidden"}
-    
-    $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will be saved for later use."
-    $credentials | Export-Clixml -Path $path\credentials.xml
-    Write-Host "Credentials saved to $($path)\credentials.xml in secure format.."
-    $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+    Write-Host "No credentials found, please enter manually."
+    Connect-AzureAD
+} else {
+    $credential = Import-CliXML -Path "$env:USERPROFILE\UpstreamPowerPack\credentials.xml"
+    Connect-AzureAD -Credential $credential > $null
 }
-
-$credential = Import-CliXML -Path "$env:USERPROFILE\UpstreamPowerPack\credentials.xml"
-
-Connect-AzureAD -Credential $credential > $null
 
 Import-Module ITGlueAPI
 
