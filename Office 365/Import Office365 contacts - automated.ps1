@@ -31,10 +31,7 @@ function importO365Emails {
             $firstname = $currentUser.DisplayName
             $lastname = ""
         }
-
-        $enc = [System.Text.Encoding]::UTF8
-        $utfFirstName= $enc.GetBytes($firstname)
-
+        
         $body = @{
             organization_id = $organisationid
             data = @{
