@@ -1,45 +1,26 @@
-function ITGlueTranslation($skuPartNumber) {
-    switch($skuPartNumber) {
-        "O365_BUSINESS"            {return "Office 365 Business"}
-        "O365_BUSINESS_ESSENTIALS" {return "Office 365 Business Essentials"}
-        "O365_BUSINESS_PREMIUM"    {return "Office 365 Business Premium"}
-        "EMSPREMIUM"               {return "Emspremium"}
-
-
-        # (Get-AzureADSubscribedSku).SkuPartNumber to see all O365
-        # version. Replace "Powershell output" with version add
-        # "ITGlue translation" with what you want to see in ITGlue.
-        
-        # Template for adding more
-        # {"Powershell output"}      {return "ITGlue translation"}
-        # {"Powershell output"}      {return "ITGlue translation"}
-        # {"Powershell output"}      {return "ITGlue translation"}
-        # {"Powershell output"}      {return "ITGlue translation"}
-        
-        default                      {return $skuPartNumber}
-    }
-}
-
 function importO365Emails {
     param (
-        [int]$organisationid,
-        [int]$flexAssetId
+        [int]$organisationid
     )
     
 
-    # Initiate variables
-    $O365Users = @{}
-    $translatedSkuWithID = @{}
+    # Get all contacts from ITGlue
+    $ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'total-count')).data | Where-Object {$_.attributes.'organization-id' -eq $organisationid})
+
 
     # Store email with translated O365 version
     Get-AzureADUser | ForEach-Object {
-        $currentUser = $_
-        if($currentUser.AssignedLicenses.skuid -ne $null) {
-            $O365Users.Add($_.UserPrincipalName, ($translatedSkuWithID.($currentUser.AssignedLicenses.skuid)))
-        } else {
-            # $O365Users.Add($_.UserPrincipalName, "No license")
+        if($_.AssignedLicenses.skuid -eq $null) {
+            # Remove "return" to import unlicensed users.
+            return
+        } elseif($ITGlueContacts.attributes.'contact-emails'.value -contains $_.UserPrincipalName) {
+            # Skip existing emails
+            return
         }
 
+        $currentUser = $_
+
+        # Clean up name
         if($currentUser.DisplayName.Split().Count -gt 1) {
             $firstname = $currentUser.DisplayName.Replace($currentUser.DisplayName.Split()[$currentUser.DisplayName.Split().Count - 1], "")
             $lastname = $currentUser.DisplayName.Split()[-1]
@@ -50,45 +31,37 @@ function importO365Emails {
             $firstname = $currentUser.DisplayName
             $lastname = ""
         }
-    }
 
-    # Antingen flytta in body och new i loppen eller spara firtname och lastname på annan ort
-    $body = @{
-        organization_id = $organisationid
-        data = @{
-            type = 'contacts'
-            attributes = @{
-                first_name = $firstname
-                last_name = $lastname
-                notes = "Added via script"
-                contact_emails = @(
-                    @{
-                        value = $_.UserPrincipalName
-                        label_name = "Work"
-                        primary = $true
-                    }
-                )
+        $enc = [System.Text.Encoding]::UTF8
+        $utfFirstName= $enc.GetBytes($firstname)
+
+        $body = @{
+            organization_id = $organisationid
+            data = @{
+                type = 'contacts'
+                attributes = @{
+                    first_name = $firstname
+                    last_name = $lastname
+                    notes = "Office 365 user"
+                    contact_emails = @(
+                        @{
+                            value = $currentUser.UserPrincipalName
+                            label_name = "Work"
+                            primary = $true
+                        }
+                    )
+                }
             }
         }
-    }
 
-    New-ITGlueContacts -data $body
+        New-ITGlueContacts -data $body
+    }
 }
 
 $path = "$env:USERPROFILE\UpstreamPowerPack"
 
 if(-not (Test-Path -path $path\o365credentials.xml)) {
-    # # READ THIS # READ THIS # READ THIS # #
-    #                                       #
-    # If you have not saved your office 365 #
-    # credentials, you need to enter them   #
-    # manually here.                        #
-    #                                       #
-    # If you do not enter username and      #
-    # password, the script will stop        #
-    #                                       #
-    # # READ THIS # READ THIS # READ THIS # #
-
+    # If you did not save your Office 365 credentials via installation script, you need to enter them here.
     $username = "YOUR OFFICE 365 EMAIL GOES HERE"
     $password = ConvertTo-SecureString "YOUR OFFICE 365 PASSWORD GOES HERE"  -AsPlainText -Force
 
@@ -103,3 +76,6 @@ if(-not (Test-Path -path $path\o365credentials.xml)) {
     $credential = Import-CliXML -Path $path\o365credentials.xml
     Connect-AzureAD -Credential $credential > $null
 }
+
+
+importO365Emails -organisationid 2504761
