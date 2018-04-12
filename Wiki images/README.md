@@ -1,0 +1,1 @@
+This folder only serve as image hosting for the wiki and has nothing to do with the scripts.
