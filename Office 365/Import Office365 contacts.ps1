@@ -120,61 +120,61 @@ $id = $org[0].id
 $ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'total-count')).data | Where-Object {$_.attributes.'organization-id' -eq $organisationid})
 
 Get-AzureADUser | ForEach-Object {
-        if($_.AssignedLicenses.skuid -eq $null) {
-            Write-Host "$($_.UserPrincipalName) does not have a licens. Add anyway?"
-            $userInput = Read-Host "y/n"
-            if ("yes" -match $userInput) {
-                if ("no" -notmatch $alwaysAdd) {
-                    $alwaysAdd = Read-Host "Always add unlicensed user? (y/n)"
-                }
-            } else {
-                return            
-            }
-
-        } elseif($ITGlueContacts.attributes.'contact-emails'.value -contains $_.UserPrincipalName) {
-            Write-Host "$($_.UserPrincipalName) already exists. Add anyway?"
-            $userInput = Read-Host "y/n"
-            if ("yes" -match $userInput) {
-                if ("no" -notmatch $alwaysAdd) {
-                    $alwaysAdd = Read-Host "Always add existing user? (y/n)"
-                }
-            } else {
-                return            
-            }
-        }
-
-        $currentUser = $_
-
-        # Clean up name
-        if($currentUser.DisplayName.Split().Count -gt 1) {
-            $firstname = $currentUser.DisplayName.Replace($currentUser.DisplayName.Split()[$currentUser.DisplayName.Split().Count - 1], "")
-            $lastname = $currentUser.DisplayName.Split()[-1]
-            if($firstname.EndsWith(" ")) {
-                $firstname = $firstname.Substring(0, $firstname.Length - 1)
+    if($_.AssignedLicenses.skuid -eq $null) {
+        Write-Host "$($_.UserPrincipalName) does not have a licens. Add anyway?"
+        $userInput = Read-Host "y/n"
+        if ("yes" -match $userInput) {
+            if ("no" -notmatch $alwaysAdd) {
+                $alwaysAdd = Read-Host "Always add unlicensed user? (y/n)"
             }
         } else {
-            $firstname = $currentUser.DisplayName
-            $lastname = ""
-        }
-        
-        $body = @{
-            organization_id = $organisationid
-            data = @{
-                type = 'contacts'
-                attributes = @{
-                    first_name = $firstname
-                    last_name = $lastname
-                    notes = "Office 365 user"
-                    contact_emails = @(
-                        @{
-                            value = $currentUser.UserPrincipalName
-                            label_name = "Work"
-                            primary = $true
-                        }
-                    )
-                }
-            }
+            return            
         }
 
-        New-ITGlueContacts -data $body
+    } elseif($ITGlueContacts.attributes.'contact-emails'.value -contains $_.UserPrincipalName) {
+        Write-Host "$($_.UserPrincipalName) already exists. Add anyway?"
+        $userInput = Read-Host "y/n"
+        if ("yes" -match $userInput) {
+            if ("no" -notmatch $alwaysAdd) {
+                $alwaysAdd = Read-Host "Always add existing user? (y/n)"
+            }
+        } else {
+            return            
+        }
     }
+
+    $currentUser = $_
+
+    # Clean up name
+    if($currentUser.DisplayName.Split().Count -gt 1) {
+        $firstname = $currentUser.DisplayName.Replace($currentUser.DisplayName.Split()[$currentUser.DisplayName.Split().Count - 1], "")
+        $lastname = $currentUser.DisplayName.Split()[-1]
+        if($firstname.EndsWith(" ")) {
+            $firstname = $firstname.Substring(0, $firstname.Length - 1)
+        }
+    } else {
+        $firstname = $currentUser.DisplayName
+        $lastname = ""
+    }
+    
+    $body = @{
+        organization_id = $organisationid
+        data = @{
+            type = 'contacts'
+            attributes = @{
+                first_name = $firstname
+                last_name = $lastname
+                notes = "Office 365 user"
+                contact_emails = @(
+                    @{
+                        value = $currentUser.UserPrincipalName
+                        label_name = "Work"
+                        primary = $true
+                    }
+                )
+            }
+        }
+    }
+
+    New-ITGlueContacts -data $body
+}
