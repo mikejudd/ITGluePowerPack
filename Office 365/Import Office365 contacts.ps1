@@ -54,13 +54,13 @@ function MultipleOrgHits() {
     return $multipleOrgs
 }
 
-function storeCredentials {
+function Update-StoredCredentials {
     if(-not (Test-Path -path $path)) {
-            New-Item $path -ItemType Directory | %{$_.Attributes = "hidden"}
+        New-Item $path -ItemType Directory | %{$_.Attributes = "hidden"}
     }
 
-    $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will be saved for later use."
-    $credentials | Export-Clixml -Path $path\o365credentials.xml
+    $credential = Get-Credential -Message "Enter your Office 365 credentials. These will be saved for later use."
+    $credential | Export-Clixml -Path $path\o365credentials.xml
     
     Write-Host "Credentials saved to $($path)\o365credentials.xml in secure format.."
 }
@@ -78,30 +78,46 @@ try {
 
     $userInput = Read-Host "y/n"
     if ("yes" -match $userInput) {
-        storeCredentials()
+        Update-StoredCredentials
     } else {
-        $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will NOT be saved for later use."
-    }
-} finally {
-    $connected = "not connected"
-    while($connected -eq "not connected") {
-        try {
-            $connected = Connect-AzureAD -Credential $credential
-        } catch {
-            Write-Host "Connection failed. Please update your credentials."
-            Write-Host "Do you want to save them for later use?"
-
-            $userInput = Read-Host "y/n"
-
-            if ("yes" -match $userInput) {
-                storeCredentials()
-            } else {
-                $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will NOT be saved for later use."
-            }
-        }
+        $credential = Get-Credential -Message "Enter your Office 365credentials. These will NOT be saved for later use."
     }
 }
 
+
+if ("yes" -match $userInput) {
+    while($true) {
+        try {
+            $success = $true
+            Connect-AzureAD -Credential $credential > $null
+        } catch {
+            $success = $false
+            Write-Host "Connection failed. Please update your credentials."
+            Update-StoredCredentials
+        } finally {
+            $credential = Import-CliXML -Path $path\o365credentials.xml
+        }
+
+        if ($success) {
+            break
+        }
+    }
+} else {
+    while($true) {
+        try {
+            $success = $true
+            Connect-AzureAD -Credential $credential > $null
+        } catch {
+            $success = $false
+            Write-Host "Connection failed. Please update your credentials."
+            $credential = Get-Credential -Message "Enter your Office 365credentials. These will NOT be saved for later use."
+        }
+
+        if ($success) {
+            break
+        }
+    }
+}
 
 
 # Get Organisation from ITGlue
