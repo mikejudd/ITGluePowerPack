@@ -10,7 +10,8 @@ Power Pack was originally created as a mean to get people started with scripting
 
 This is a repo with scripts made in Powershell aimed at importing data to [ITGlue](https://itglue.com/) to save you time and get you started with creating your own scripts.
   
-# What is [ITGlue](https://itglue.com/)?
+# What is ITGlue?
+https://itglue.com/
 >IT Glue™ is a proven, best practices-driven IT documentation platform packed with features designed to help you maximize the efficiency, transparency and consistency of your team. With at least 20% of your business productivity lost each day in search of vital information, let IT Glue secure this information and start Freeing Minds™.
   
 # Free to use!
@@ -18,3 +19,9 @@ You can take any code you find here and use as you like.
 
 # Confused?
 Confused about what to do or what each file does? Read the [wiki](https://github.com/UpstreamAB/ITGluePowerPack/wiki)!
+
+# Credits and references
+These scripts use powershellwrapper, created and maintained by [https://github.com/CalebAlbers](CalebAlbers). Thank you!
+
+Wrapper: https://github.com/itglue/powershellwrapper  
+ITGlue API documentation: https://api.itglue.com/developer
