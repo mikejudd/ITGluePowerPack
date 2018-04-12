@@ -1,67 +1,24 @@
-﻿function FindContacts {
-    param($OrganizationId)
-
-    $pageNumber = 1
-    $foundContacts = New-Object System.Collections.ArrayList
-
-    while($true) {
-        Get-ITGlueContacts -page_number $pageNumber | ForEach-Object {
-            $_.data | ForEach-Object {
-                if($_.attributes.'organization-id' -eq $OrganizationId) {
-                    $person = New-Object psobject
-                    $person | Add-Member -Type NoteProperty -Name id -Value $_.id
-                    $person | Add-Member -Type NoteProperty -Name name -Value $_.attributes.name
-                    $_.attributes.'contact-emails' | ForEach-Object {
-                        if($_.primary -eq $true) {
-                            $person | Add-Member -Type NoteProperty -Name email -Value $_.value
-                        }
-                    }
-                    $person | Add-Member -Type NoteProperty -Name ITGlueObj -value $_
-                                        
-                    $foundContacts.Add($person) > $null
-                }
-            }
-            if ($pageNumber -eq $_.meta.'total-pages') {
-                break
-            }
-        }
-        $pageNumber++
-    }
-    
-    return $foundContacts
-}
-
-function FindOrganisation {
+﻿function FindOrganisation {
     param([String]$organisationName)
     
-    $pageNumber = 1
-    $result = New-Object System.Collections.ArrayList
-    while($true) {
-        Get-ITGlueOrganizations -page_number $pageNumber | ForEach-Object {
-            $_.data | ForEach-Object {
-                if($_.attributes.name -like "*$organisationName*") {
-                    $result.Add($_) > $null
-                }
-            }
+    $foundOrgs = New-Object System.Collections.ArrayList
 
-            if ($pageNumber -eq $_.meta.'total-pages') {
-                if (!$result[0]) {
-                    $result = @("null")
-                }
-                break
+    (Get-ITGlueOrganizations -page_size ((Get-ITGlueOrganizations).meta.'total-count')).data | ForEach-Object {
+        if($_.attributes.name -like "*$organisationName*") {
+                $foundOrgs.Add($_) > $null
             }
         }
-        $pageNumber++
+    }
+
+    if(-not $foundOrgs) {
+        $foundOrgs = @("null")
     }
     
-    return $result
+    return $foundOrgs
 }
 
 function MultipleOrgHits() {
     param($multipleOrgs)
-
-    $multipleOrgs
-    
 
     $count=0
     foreach($orgName in $multipleOrgs) {
@@ -88,13 +45,61 @@ function MultipleOrgHits() {
             Write-Host "You must enter a from 0 to $count."
         }
     }
-    until (-not ($value -eq $null) -and ($value -le $count))
+    until (($value -ne $null) -and ($value -le $count))
 
     Write-Host ""
     Write-Host "You chose $($multipleOrgs[$userInput].attributes.name)"
     $multipleOrgs = $multipleOrgs[$userInput]
 
     return $multipleOrgs
+}
+
+function storeCredentials {
+    if(-not (Test-Path -path $path)) {
+            New-Item $path -ItemType Directory | %{$_.Attributes = "hidden"}
+    }
+
+    $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will be saved for later use."
+    $credentials | Export-Clixml -Path $path\o365credentials.xml
+    
+    Write-Host "Credentials saved to $($path)\o365credentials.xml in secure format.."
+}
+
+
+
+$path = "$env:USERPROFILE\UpstreamPowerPack"
+
+try {
+    Write-Host "Trying with prestored credentials.."
+    $credential = Import-CliXML -Path $path\o365credentials.xml
+} catch [System.IO.DirectoryNotFoundException] {
+    Write-Host "No credentials was found, to you want to save them for later use now?"
+    Write-Host "Credentials will be saved to $($path)\o365credentials.xml."
+
+    $userInput = Read-Host "y/n"
+    if ("yes" -match $userInput) {
+        storeCredentials()
+    } else {
+        $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will NOT be saved for later use."
+    }
+} finally {
+    $connected = "not connected"
+    while($connected -eq "not connected") {
+        try {
+            $connected = Connect-AzureAD -Credential $credential
+        } catch {
+            Write-Host "Connection failed. Please update your credentials."
+            Write-Host "Do you want to save them for later use?"
+
+            $userInput = Read-Host "y/n"
+
+            if ("yes" -match $userInput) {
+                storeCredentials()
+            } else {
+                $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will NOT be saved for later use."
+            }
+        }
+    }
 }
 
 
@@ -111,32 +116,58 @@ if($org[1]) {
 }
 
 $id = $org[0].id
-$itglueContacts = FindContacts -OrganizationId $id
 
-Get-MsolUser | ForEach-Object {
-    if($itglueContacts.email -notcontains $_.UserPrincipalName) {
-        if($_.DisplayName.Split().Count -gt 1) {
-            $firstname = $_.DisplayName.Replace($_.DisplayName.Split()[$_.DisplayName.Split().Count - 1], "")
-            $lastname = $_.DisplayName.Split()[-1]
+$ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'total-count')).data | Where-Object {$_.attributes.'organization-id' -eq $organisationid})
+
+Get-AzureADUser | ForEach-Object {
+        if($_.AssignedLicenses.skuid -eq $null) {
+            Write-Host "$($_.UserPrincipalName) does not have a licens. Add anyway?"
+            $userInput = Read-Host "y/n"
+            if ("yes" -match $userInput) {
+                if ("no" -notmatch $alwaysAdd) {
+                    $alwaysAdd = Read-Host "Always add unlicensed user? (y/n)"
+                }
+            } else {
+                return            
+            }
+
+        } elseif($ITGlueContacts.attributes.'contact-emails'.value -contains $_.UserPrincipalName) {
+            Write-Host "$($_.UserPrincipalName) already exists. Add anyway?"
+            $userInput = Read-Host "y/n"
+            if ("yes" -match $userInput) {
+                if ("no" -notmatch $alwaysAdd) {
+                    $alwaysAdd = Read-Host "Always add existing user? (y/n)"
+                }
+            } else {
+                return            
+            }
+        }
+
+        $currentUser = $_
+
+        # Clean up name
+        if($currentUser.DisplayName.Split().Count -gt 1) {
+            $firstname = $currentUser.DisplayName.Replace($currentUser.DisplayName.Split()[$currentUser.DisplayName.Split().Count - 1], "")
+            $lastname = $currentUser.DisplayName.Split()[-1]
             if($firstname.EndsWith(" ")) {
                 $firstname = $firstname.Substring(0, $firstname.Length - 1)
             }
         } else {
-            $firstname = $_.DisplayName
+            $firstname = $currentUser.DisplayName
             $lastname = ""
         }
-    
+        
         $body = @{
-            organization_id = $id
+            organization_id = $organisationid
             data = @{
                 type = 'contacts'
                 attributes = @{
                     first_name = $firstname
                     last_name = $lastname
-                    notes = "Added via script"
+                    notes = "Office 365 user"
                     contact_emails = @(
                         @{
-                            value = $_.UserPrincipalName
+                            value = $currentUser.UserPrincipalName
                             label_name = "Work"
                             primary = $true
                         }
@@ -144,8 +175,6 @@ Get-MsolUser | ForEach-Object {
                 }
             }
         }
+
         New-ITGlueContacts -data $body
-    } else {
-        Write-Host "Skipping $($_.UserPrincipalName) because user already exists in ITGlue."
     }
-}
