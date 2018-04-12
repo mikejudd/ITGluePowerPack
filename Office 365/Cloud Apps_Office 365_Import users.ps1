@@ -55,7 +55,7 @@ function addO365Users {
     }
 
     # Get all contacts from ITGlue
-    $ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'total-count')).data | Where-Object { $_.attributes.'organization-id' -eq $organisationid})
+    $ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'total-count')).data | Where-Object {$_.attributes.'organization-id' -eq $organisationid})
 
 
     foreach($ITGContact in $ITGlueContacts) {
@@ -127,18 +127,13 @@ function addO365Users {
 
 $path = "$env:USERPROFILE\UpstreamPowerPack"
 
-if(-not (Test-Path -path $path)) {
-    New-Item $path -ItemType Directory | %{$_.Attributes = "hidden"}
-    
-    $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will be saved for later use."
-    $credentials | Export-Clixml -Path $path\credentials.xml
-    Write-Host "Credentials saved to $($path)\credentials.xml in secure format.."
-    $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+if(-not (Test-Path -path $path\o365credentials.xml)) {
+    Write-Host "No credentials found, please enter manually."
+    Connect-AzureAD
+} else {
+    $credential = Import-CliXML -Path $path\o365credentials.xml
+    Connect-AzureAD -Credential $credential > $null
 }
-
-$credential = Import-CliXML -Path "$env:USERPROFILE\UpstreamPowerPack\credentials.xml"
-
-Connect-AzureAD -Credential $credential > $null
 
 Import-Module ITGlueAPI
 

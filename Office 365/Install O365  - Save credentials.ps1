@@ -20,7 +20,7 @@ Install-Module AzureAD
 
 $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will be saved for later use."
 
-$credentials | Export-Clixml -Path $path\credentials.xml
+$credentials | Export-Clixml -Path $path\o365credentials.xml
 
 Write-Host "Credentials saved to $($path) in secure format.."
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
