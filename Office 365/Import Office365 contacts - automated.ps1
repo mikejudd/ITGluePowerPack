@@ -8,7 +8,6 @@ function importO365Emails {
     $ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'total-count')).data | Where-Object {$_.attributes.'organization-id' -eq $organisationid})
 
 
-    # Store email with translated O365 version
     Get-AzureADUser | ForEach-Object {
         if($_.AssignedLicenses.skuid -eq $null) {
             # Remove "return" to import unlicensed users.
