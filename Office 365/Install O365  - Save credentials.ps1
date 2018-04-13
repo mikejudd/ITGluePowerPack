@@ -14,8 +14,6 @@ if(-not (Test-Path -path $path)) {
     New-Item $path -ItemType Directory | %{$_.Attributes = "hidden"}
 }
 
-Save-Module -Name PowerShellGet -Path $path
-
 Install-Module AzureAD
 
 $credentials = Get-Credential -Message "Enter your Office 365 credentials. These will be saved for later use."
