@@ -143,22 +143,14 @@ Get-AzureADUser | ForEach-Object {
     if($_.AssignedLicenses.skuid -eq $null) {
         Write-Host "$($_.UserPrincipalName) does not have a licens. Add anyway?"
         $userInput = Read-Host "y/n"
-        if ("yes" -match $userInput) {
-            if ("no" -notmatch $alwaysAdd) {
-                $alwaysAdd = Read-Host "Always add unlicensed user? (y/n)"
-            }
-        } else {
+        if ("yes" -match $userInput) { } else {
             return            
         }
 
     } elseif($ITGlueContacts.attributes.'contact-emails'.value -contains $_.UserPrincipalName) {
         Write-Host "$($_.UserPrincipalName) already exists. Add anyway?"
         $userInput = Read-Host "y/n"
-        if ("yes" -match $userInput) {
-            if ("no" -notmatch $alwaysAdd) {
-                $alwaysAdd = Read-Host "Always add existing user? (y/n)"
-            }
-        } else {
+        if ("yes" -match $userInput) { } else {
             return            
         }
     }
