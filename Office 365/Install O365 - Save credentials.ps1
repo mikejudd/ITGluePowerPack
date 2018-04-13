@@ -21,4 +21,5 @@ $credentials = Get-Credential -Message "Enter your Office 365 credentials. These
 $credentials | Export-Clixml -Path $path\o365credentials.xml
 
 Write-Host "Credentials saved to $($path) in secure format.."
+Write-Host "Press any key to exit."
 $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null
