@@ -54,9 +54,9 @@ function importO365Emails {
     }
 }
 
-if(-not Get-Module -ListAvailable -Name AzureAD) {
+if(-not (Get-Module -ListAvailable -Name AzureAD)) {
     Write-Host "Please run the Office 365 install script first."
-    Read-Host
+    $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null
     exit
 }
 
