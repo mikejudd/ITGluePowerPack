@@ -6,7 +6,6 @@
     (Get-ITGlueOrganizations -page_size ((Get-ITGlueOrganizations).meta.'total-count')).data | ForEach-Object {
         if($_.attributes.name -like "*$organisationName*") {
                 $foundOrgs.Add($_) > $null
-            }
         }
     }
 
@@ -65,6 +64,11 @@ function Update-StoredCredentials {
     Write-Host "Credentials saved to $($path)\o365credentials.xml in secure format.."
 }
 
+if(-not Get-Module -ListAvailable -Name AzureAD) {
+    Write-Host "Please run the Office 365 install script first."
+    Read-Host
+    exit
+}
 
 
 $path = "$env:USERPROFILE\UpstreamPowerPack"
