@@ -10,4 +10,4 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 Install-Module AzureADPreview
 
-$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+$Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null
