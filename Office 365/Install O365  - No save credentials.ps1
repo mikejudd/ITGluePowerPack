@@ -8,6 +8,9 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
-Install-Module AzureADPreview
+Install-Module AzureAD
 
+$credentials = Get-Credential -Message "Enter your Office 365 credentials. These will NOT be saved for later use."
+
+Write-Host "Press any key to exit."
 $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null
