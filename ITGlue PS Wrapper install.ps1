@@ -20,8 +20,8 @@ Expand-Archive -Path .\ITGlueAPI.zip -DestinationPath .\ -Force
 Write-Host 'Complete!'
 
 # Copy
-Write-Host "$env:ProgramFiles\WindowsPowerShell\Modules\ITGlueAPI... " -NoNewline
-Copy-Item '.\powershellwrapper-master\ITGlueAPI' "$env:ProgramFiles\WindowsPowerShell\Modules\ITGlueAPI" -Recurse
+Write-Host "Coping to $env:ProgramFiles\WindowsPowerShell\Modules\ITGlueAPI... " -NoNewline
+Copy-Item '.\powershellwrapper-master\ITGlueAPI' "$env:ProgramFiles\WindowsPowerShell\Modules\ITGlueAPI" -Recurse -Force
 Write-Host 'Complete!'
 
 # Delete items
