@@ -70,15 +70,18 @@ if(-not (Get-Module -ListAvailable -Name AzureAD)) {
     exit
 }
 
-
+##start
 $path = "$env:USERPROFILE\UpstreamPowerPack"
 
 try {
-    Write-Host "Trying with prestored credentials.."
+    Write-Host -NoNewline "Trying with prestored credentials.. "
     $credential = Import-CliXML -Path $path\o365credentials.xml
-} catch [System.IO.DirectoryNotFoundException] {
+} catch {
+    Write-Host ""
+    Write-Host ""
     Write-Host "No credentials was found, to you want to save them for later use now?"
     Write-Host "Credentials will be saved to $($path)\o365credentials.xml."
+    Write-Host ""
 
     $userInput = Read-Host "y/n"
     if ("yes" -match $userInput) {
@@ -93,13 +96,12 @@ if ("yes" -match $userInput) {
     while($true) {
         try {
             $success = $true
+            $credential = Import-CliXML -Path $path\o365credentials.xml
             Connect-AzureAD -Credential $credential > $null
         } catch {
             $success = $false
             Write-Host "Connection failed. Please update your credentials."
             Update-StoredCredentials
-        } finally {
-            $credential = Import-CliXML -Path $path\o365credentials.xml
         }
 
         if ($success) {
@@ -124,6 +126,7 @@ if ("yes" -match $userInput) {
 }
 
 
+Write-Host ""
 # Get Organisation from ITGlue
 $userInput = Read-Host "Organisation name in ITGlue"
 $org = FindOrganisation -organisationName $userInput
@@ -133,9 +136,11 @@ if($org[1]) {
     $org = MultipleOrgHits($org)
 } elseif ($org[0] -eq "null") {
     Write-Host "No organisation"
+} else {
+    Write-Host "Using $($org[0])."
 }
 
-$id = $org[0].id
+$organisationid = $org[0].id
 
 $ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'total-count')).data | Where-Object {$_.attributes.'organization-id' -eq $organisationid})
 
