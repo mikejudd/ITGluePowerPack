@@ -47,7 +47,7 @@ function MultipleOrgHits() {
     until (($value -ne $null) -and ($value -le $count))
 
     Write-Host ""
-    Write-Host "You chose $($multipleOrgs[$userInput].attributes.name)"
+    # Write-Host "You chose $($multipleOrgs[$userInput].attributes.name)"
     $multipleOrgs = $multipleOrgs[$userInput]
 
     return $multipleOrgs
@@ -125,21 +125,24 @@ if ("yes" -match $userInput) {
     }
 }
 
-## FIXA LOOP OM MAN SKREV FEL
 
 Write-Host ""
-# Get Organisation from ITGlue
-$userInput = Read-Host "Organisation name in ITGlue"
-$org = FindOrganisation -organisationName $userInput
+#Mistake loop
+while($true) {
+    ## Oändlig loop
+    $org = FindOrganisation -organisationName (Read-Host "Organisation name in ITGlue")
 
-# Handle more than one hit
-if($org[1]) {
-    $org = MultipleOrgHits($org)
-} elseif ($org[0] -eq "null") {
-    Write-Host "No organisation"
-} else {
-    Write-Host "Using $($org[0])."
+    # Handle more than one hit
+    if($org[1]) {
+        $org = MultipleOrgHits($org)
+    } elseif ($org[0] -eq "null") {
+        Write-Host "No organisation"
+    } else {
+        $userInput = Read-Host "Do you want to import into $($org[0])? (y/n)"
+
+    }
 }
+# Get Organisation from ITGlue
 
 $organisationid = $org[0].id
 
