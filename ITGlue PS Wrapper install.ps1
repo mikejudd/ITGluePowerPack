@@ -49,4 +49,4 @@ Export-ITGlueModuleSettings
 Write-Host 'Complete!'
 
 Write-Host -NoNewLine "Done, press any key to exit..."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+$Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null
