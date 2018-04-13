@@ -125,6 +125,7 @@ if ("yes" -match $userInput) {
     }
 }
 
+## FIXA LOOP OM MAN SKREV FEL
 
 Write-Host ""
 # Get Organisation from ITGlue
