@@ -64,9 +64,8 @@ function Update-StoredCredentials {
     Write-Host "Credentials saved to $($path)\o365credentials.xml in secure format.."
 }
 
-if(-not Get-Module -ListAvailable -Name AzureAD) {
-    Write-Host "Please run the Office 365 install script first."
-    Read-Host
+if(-not (Get-Module -ListAvailable -Name AzureAD)) {
+    $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null
     exit
 }
 
