@@ -1,5 +1,3 @@
-![https://upstream.se](https://upstream.se/wp-content/themes/UpStream/images/logo-top.png)  
-  
 # Upstream IT Glue Power Pack  
 Don't go mainstream, go [Upstream](https://en.upstream.se)!
 
