@@ -8,19 +8,7 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
-$path = "$env:USERPROFILE\UpstreamPowerPack"
-
-if(-not (Test-Path -path $path)) {
-    New-Item $path -ItemType Directory | %{$_.Attributes = "hidden"}
-}
-
-Save-Module -Name PowerShellGet -Path $path
-
 Install-Module AzureAD
 
-$credentials = Get-Credential -Message "Enter your Office 365 credentials. These will be saved for later use."
-
-$credentials | Export-Clixml -Path $path\o365credentials.xml
-
-Write-Host "Credentials saved to $($path) in secure format.."
-$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+Write-Host "Press any key to exit."
+$Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null

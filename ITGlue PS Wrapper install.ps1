@@ -20,8 +20,8 @@ Expand-Archive -Path .\ITGlueAPI.zip -DestinationPath .\ -Force
 Write-Host 'Complete!'
 
 # Copy
-Write-Host "$env:ProgramFiles\WindowsPowerShell\Modules\ITGlueAPI... " -NoNewline
-Copy-Item '.\powershellwrapper-master\ITGlueAPI' "$env:ProgramFiles\WindowsPowerShell\Modules\ITGlueAPI" -Recurse
+Write-Host "Coping to $env:ProgramFiles\WindowsPowerShell\Modules\ITGlueAPI... " -NoNewline
+Copy-Item '.\powershellwrapper-master\ITGlueAPI' "$env:ProgramFiles\WindowsPowerShell\Modules\ITGlueAPI" -Recurse -Force
 Write-Host 'Complete!'
 
 # Delete items
@@ -49,4 +49,4 @@ Export-ITGlueModuleSettings
 Write-Host 'Complete!'
 
 Write-Host -NoNewLine "Done, press any key to exit..."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+$Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null

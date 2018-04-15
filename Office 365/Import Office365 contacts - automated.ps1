@@ -54,6 +54,13 @@ function importO365Emails {
     }
 }
 
+if(-not (Get-Module -ListAvailable -Name AzureAD)) {
+    Write-Host "Please run the Office 365 install script first."
+    $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null
+    exit
+}
+
+
 $path = "$env:USERPROFILE\UpstreamPowerPack"
 
 if(-not (Test-Path -path $path\o365credentials.xml)) {
