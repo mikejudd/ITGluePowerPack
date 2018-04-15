@@ -1,6 +1,6 @@
 ![https://upstream.se](https://upstream.se/wp-content/themes/UpStream/images/logo-top.png)  
   
-# ITGlue PowerPack  
+# Upstream IT Glue Power Pack  
 Don't go mainstream, go [Upstream](https://en.upstream.se)!
 
 Check out our [blog](https://upstream.se/blogg/) and our [Kaseya VSA PowerPack](https://upstream.se/blogg/upstream-power-pack/). Sign up for it [here](http://go.upstream.se/guide-eng-power-pack).
