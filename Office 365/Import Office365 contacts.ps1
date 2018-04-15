@@ -159,6 +159,7 @@ $ITGlueContacts = ((Get-ITGlueContacts -page_size ((Get-ITGlueContacts).meta.'to
 
 Get-AzureADUser | ForEach-Object {
     if($_.AssignedLicenses.skuid -eq $null) {
+        Write-Host ""
         Write-Host "$($_.UserPrincipalName) does not have a licens. Add anyway?"
         $userInput = Read-Host "y/n"
         if ("yes" -match $userInput) { } else {
@@ -166,6 +167,7 @@ Get-AzureADUser | ForEach-Object {
         }
 
     } elseif($ITGlueContacts.attributes.'contact-emails'.value -contains $_.UserPrincipalName) {
+        Write-Host ""
         Write-Host "$($_.UserPrincipalName) already exists. Add anyway?"
         $userInput = Read-Host "y/n"
         if ("yes" -match $userInput) { } else {
@@ -206,5 +208,6 @@ Get-AzureADUser | ForEach-Object {
         }
     }
 
+    Write-Host ""
     New-ITGlueContacts -data $body
 }
