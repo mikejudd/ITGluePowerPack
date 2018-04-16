@@ -79,7 +79,7 @@ function addO365Users {
                 # ...make sure it is the correct Office Version...
                 if($matchedContacts.($key).OffVersion -eq $OfficeVersion) {
                     # ...see if the email for the current OfficeVersion exists more than once.
-                    if (($matchedContacts.Values | where{$_.email -eq $matchedContacts.($key).email -and $_.OffVersion -eq $officeVersion}).count -gt 1) {
+                    if (($matchedContacts.Values | where{$_.email -eq $matchedContacts.($key).email -and $_.OffVersion -eq $officeVersion}).count -gt 2) {
                         # This should mean that the email of the current ID ($key) does not exist in the flexible asset but the corresponding email does.
                         $removeTheseContacts.Add($key) > $null
                     }
@@ -91,7 +91,9 @@ function addO365Users {
             $matchedContacts.Remove($id)
         }
         
-        $matchedContactsForCurrentVersion = @($matchedContacts.GetEnumerator()) | Where-Object {$_.value.OffVersion -eq $officeVersion}
+        $matchedContactsForCurrentVersion = @($matchedContacts.GetEnumerator()) | Where-Object {
+            $_.value.OffVersion -eq $officeVersion
+        }
 
         
 
