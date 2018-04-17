@@ -10,13 +10,13 @@ Upstream is the exclusive IT Glue distributor and value added partner for the Sc
 # What is IT Glue?
 IT Glue is the proven, best practices-driven IT documentation platform packed with features designed to help you maximize the efficiency, transparency and consistency of your team. With at least 20% of your business productivity lost each day in search of vital information, IT Glue secures this information and start Freeing Minds.
 
-# Documentation?
+# Documentation
 Read our Wiki: https://github.com/UpstreamAB/ITGluePowerPack/wiki
 
 # Credits and references
 These scripts use powershellwrapper, created and maintained by [https://github.com/CalebAlbers](CalebAlbers). Thank you!
 
-ITGlue: https://itglue.com/) 
+ITGlue: https://itglue.com/ 
 ITGlue API Documentation: https://api.itglue.com/developer
 API Wrapper: https://github.com/itglue/powershellwrapper
 
