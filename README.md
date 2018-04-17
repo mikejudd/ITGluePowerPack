@@ -16,9 +16,9 @@ Read our Wiki: https://github.com/UpstreamAB/ITGluePowerPack/wiki
 # Credits and references
 These scripts use powershellwrapper, created and maintained by [https://github.com/CalebAlbers](CalebAlbers). Thank you!
 
-ITGlue: https://itglue.com/
+IT Glue: https://itglue.com/
 
-ITGlue API Documentation: https://api.itglue.com/developer
+IT Glue API Documentation: https://api.itglue.com/developer
 
 API Wrapper: https://github.com/itglue/powershellwrapper
 
