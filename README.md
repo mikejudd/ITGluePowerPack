@@ -2,7 +2,7 @@
 Don't go mainstream, go [Upstream](https://en.upstream.se)!
   
 # What is it?
-This is a collection of Powershell scripts to be used with your IT Glue investment. Our first release focus on importing and syncronizing data with the help of API's to achieve continuous and repeatable Ofice365 user Documentation Automation.
+This is a collection of Powershell scripts to be used with your IT Glue investment. Our first release focus on importing and syncronizing data with the help of API's to achieve continuous and repeatable Office365 user Documentation Automation.
 
 # Who are you guys?
 Upstream is the exclusive IT Glue distributor and value added partner for the Scandinavian market. We service both MSP’s (Managed Service Providers), Retail and Enterprise customers. This is our contribution back to the IT Glue commmunity. All our future IT Glue development will be posted here.
