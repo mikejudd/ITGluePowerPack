@@ -13,6 +13,9 @@ IT Glue is the proven, best practices-driven IT documentation platform packed wi
 # Documentation
 Read our Wiki: https://github.com/UpstreamAB/ITGluePowerPack/wiki
 
+# Questions and feedback
+Email: powerpack@upstream.se
+
 # Credits and references
 These scripts use powershellwrapper, created and maintained by [https://github.com/CalebAlbers](CalebAlbers). Thank you!
 
