@@ -18,13 +18,7 @@ $body = @{
                             name = 'Application name'
                             kind = 'Select'
                             hint = 'The name of the application like Office 365 Business Premium, Salesforce, Drobpbox etc.'
-                            default_value = "Kaseya VSA`r`n" `
-                                        + "Kaseya BMS`r`n" `
-                                        + "Kaseya Authanvil`r`n" `
-                                        + "IT Glue`r`n" `
-                                        + "GDPR Guru`r`n" `
-                                        + "Webroot`r`n" `
-                                        + "--------------------------------`r`n" `
+                            default_value = "GotoMeeting`r`n" `
                                         + "Office 365 Business`r`n" `
                                         + "Office 365 Business Premium`r`n" `
                                         + "Office 365 Business Essentials`r`n" `
