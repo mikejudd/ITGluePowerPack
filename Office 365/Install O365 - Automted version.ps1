@@ -37,6 +37,7 @@ if(-not (Test-Path -path $path)) {
     New-Item $path -ItemType Directory | %{$_.Attributes = "hidden"}
 }
 
+Install-PackageProvider -Name NuGet -Force
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 Install-Module -Name AzureAD -Force
 Set-ExecutionPolicy RemoteSigned -Force
