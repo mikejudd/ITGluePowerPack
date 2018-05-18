@@ -1,94 +1,32 @@
-AccountExpirationDate                              System.DateTime AccountExpirationDate {get;set;}
-AccountLockoutTime                                 System.DateTime AccountLockoutTime {get;set;}
-AccountNotDelegated                                System.Boolean AccountNotDelegated {get;set;}
-CannotChangePassword                               System.Boolean CannotChangePassword {get;set;}
-City                                               System.String City {get;set;}
-CN                                                 System.String CN {get;}
-Company                                            System.String Company {get;set;}
-Created                                            System.DateTime Created {get;}
-createTimeStamp                                    System.DateTime createTimeStamp {get;}
-Deleted                                            System.Boolean Deleted {get;}
-Department                                         System.String Department {get;set;}
-Description                                        System.String Description {get;set;}
-DisplayName                                        System.String DisplayName {get;set;}
-DistinguishedName                                  System.String DistinguishedName {get;set;}
-Division                                           System.String Division {get;set;}
-DoesNotRequirePreAuth                              System.Boolean DoesNotRequirePreAuth {get;set;}
-dSCorePropagationData                              Microsoft.ActiveDirectory.Management.ADPropertyValueCollection dSCorePr...
-EmailAddress                                       System.String EmailAddress {get;set;}
-EmployeeID                                         System.String EmployeeID {get;set;}
-EmployeeNumber                                     System.String EmployeeNumber {get;set;}
-Enabled                                            System.Boolean Enabled {get;set;}
-Fax                                                System.String Fax {get;set;}
-GivenName                                          System.String GivenName {get;set;}
-HomeDirectory                                      System.String HomeDirectory {get;set;}
-HomedirRequired                                    System.Boolean HomedirRequired {get;set;}
-HomeDrive                                          System.String HomeDrive {get;set;}
-HomePage                                           System.String HomePage {get;set;}
-HomePhone                                          System.String HomePhone {get;set;}
-Initials                                           System.String Initials {get;set;}
-instanceType                                       System.Int32 instanceType {get;}
-isCriticalSystemObject                             System.Boolean isCriticalSystemObject {get;set;}
-isDeleted                                          System.Boolean isDeleted {get;}
-KerberosEncryptionType                             Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Kerberos...
-LastBadPasswordAttempt                             System.DateTime LastBadPasswordAttempt {get;}
-LastKnownParent                                    System.String LastKnownParent {get;}
-lastLogoff                                         System.Int64 lastLogoff {get;set;}
-lastLogon                                          System.Int64 lastLogon {get;set;}
-LastLogonDate                                      System.DateTime LastLogonDate {get;}
-lastLogonTimestamp                                 System.Int64 lastLogonTimestamp {get;set;}
-LockedOut                                          System.Boolean LockedOut {get;set;}
-logonCount                                         System.Int32 logonCount {get;set;}
-LogonWorkstations                                  System.String LogonWorkstations {get;set;}
-Manager                                            System.String Manager {get;set;}
-MemberOf                                           Microsoft.ActiveDirectory.Management.ADPropertyValueCollection MemberOf...
-MNSLogonAccount                                    System.Boolean MNSLogonAccount {get;set;}
-MobilePhone                                        System.String MobilePhone {get;set;}
-Modified                                           System.DateTime Modified {get;}
-modifyTimeStamp                                    System.DateTime modifyTimeStamp {get;}
-msDS-User-Account-Control-Computed                 System.Int32 msDS-User-Account-Control-Computed {get;}
-Name                                               System.String Name {get;}
-nTSecurityDescriptor                               System.DirectoryServices.ActiveDirectorySecurity nTSecurityDescriptor {...
-ObjectCategory                                     System.String ObjectCategory {get;}
-ObjectClass                                        System.String ObjectClass {get;set;}
-ObjectGUID                                         System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neut...
-objectSid                                          System.Security.Principal.SecurityIdentifier objectSid {get;}
-Office                                             System.String Office {get;set;}
-OfficePhone                                        System.String OfficePhone {get;set;}
-Organization                                       System.String Organization {get;set;}
-OtherName                                          System.String OtherName {get;set;}
-PasswordExpired                                    System.Boolean PasswordExpired {get;set;}
-PasswordLastSet                                    System.DateTime PasswordLastSet {get;set;}
-PasswordNeverExpires                               System.Boolean PasswordNeverExpires {get;set;}
-PasswordNotRequired                                System.Boolean PasswordNotRequired {get;set;}
-POBox                                              System.String POBox {get;set;}
-PostalCode                                         System.String PostalCode {get;set;}
-PrimaryGroup                                       System.String PrimaryGroup {get;}
-primaryGroupID                                     System.Int32 primaryGroupID {get;set;}
-PrincipalsAllowedToDelegateToAccount               Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Principa...
-ProfilePath                                        System.String ProfilePath {get;set;}
-ProtectedFromAccidentalDeletion                    System.Boolean ProtectedFromAccidentalDeletion {get;set;}
-pwdLastSet                                         System.Int64 pwdLastSet {get;set;}
-SamAccountName                                     System.String SamAccountName {get;set;}
-sAMAccountType                                     System.Int32 sAMAccountType {get;set;}
-ScriptPath                                         System.String ScriptPath {get;set;}
-sDRightsEffective                                  System.Int32 sDRightsEffective {get;}
-ServicePrincipalNames                              Microsoft.ActiveDirectory.Management.ADPropertyValueCollection ServiceP...
-SID                                                System.Security.Principal.SecurityIdentifier SID {get;set;}
-SIDHistory                                         Microsoft.ActiveDirectory.Management.ADPropertyValueCollection SIDHisto...
-SmartcardLogonRequired                             System.Boolean SmartcardLogonRequired {get;set;}
-sn                                                 System.String sn {get;set;}
-State                                              System.String State {get;set;}
-StreetAddress                                      System.String StreetAddress {get;set;}
-Surname                                            System.String Surname {get;set;}
-Title                                              System.String Title {get;set;}
-TrustedForDelegation                               System.Boolean TrustedForDelegation {get;set;}
-TrustedToAuthForDelegation                         System.Boolean TrustedToAuthForDelegation {get;set;}
-UseDESKeyOnly                                      System.Boolean UseDESKeyOnly {get;set;}
-userAccountControl                                 System.Int32 userAccountControl {get;set;}
-userCertificate                                    Microsoft.ActiveDirectory.Management.ADPropertyValueCollection userCert...
-UserPrincipalName                                  System.String UserPrincipalName {get;set;}
-uSNChanged                                         System.Int64 uSNChanged {get;}
-uSNCreated                                         System.Int64 uSNCreated {get;}
-whenChanged                                        System.DateTime whenChanged {get;}
-whenCreated                                        System.DateTime whenCreated {get;}
+AccountExpirationDate
+AccountLockoutTime
+AccountNotDelegated
+CannotChangePassword
+City
+CN
+Company
+Created
+createTimeStamp
+Deleted
+Department
+Description
+DisplayName
+DistinguishedName
+Division
+DoesNotRequirePreAuth
+dSCorePropagationData
+EmailAddress
+EmployeeID
+EmployeeNumber
+Enabled
+GivenName
+HomeDirectory
+HomedirRequired
+HomeDrive
+MobilePhone
+PasswordExpired
+PasswordLastSet
+PasswordNeverExpires
+PasswordNotRequired
+SamAccountName
+UserPrincipalName
