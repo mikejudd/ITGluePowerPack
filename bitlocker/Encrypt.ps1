@@ -1,8 +1,5 @@
 [cmdletbinding(DefaultParameterSetName='ID')]
 param(
-
-	# ---------------- #
-
 	[Parameter(ParameterSetName='ID')]
 	[Parameter(Mandatory=$true)]
 	[int]$OrganizationId,

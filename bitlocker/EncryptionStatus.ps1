@@ -1,8 +1,22 @@
+[cmdletbinding(DefaultParameterSetName='ID')]
 param(
-	[String]$MountPoint="G:"
-)
+	[Parameter(ParameterSetName='ID')]
+	[Parameter(Mandatory=$true)]
+	[int]$OrganizationId,
 
+	[Parameter(ParameterSetName='Name')]
+	[Parameter(Mandatory=$true)]
+	[String]$OrganizationName,
 
-$idAndPassword = @(
-	(manage-bde -protectors -get $MountPoint | Select -Index 9).Replace(" ","")
+	[Parameter(ParameterSetName='ID')]
+	[Parameter(ParameterSetName='Name')]
+	[String]$MountPoint="G:",
+
+	[Parameter(ParameterSetName='ID')]
+	[Parameter(ParameterSetName='Name')]
+	[String]$ComputerName=$env:COMPUTERNAME,
+
+	[Parameter(ParameterSetName='ID')]
+	[Parameter(ParameterSetName='Name')]
+	[Switch]$CreateConfiguration
 )
