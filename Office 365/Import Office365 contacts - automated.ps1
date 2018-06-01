@@ -65,9 +65,14 @@ $path = "$env:USERPROFILE\UpstreamPowerPack"
 
 if(-not (Test-Path -path $path\o365credentials.xml)) {
     # If you did not save your Office 365 credentials via installation script, you need to enter them here.
+    ####
     $username = "YOUR OFFICE 365 EMAIL GOES HERE"
     $password = ConvertTo-SecureString "YOUR OFFICE 365 PASSWORD GOES HERE"  -AsPlainText -Force
+    ####
 
+
+
+    
     if($username -eq "YOUR OFFICE 365 EMAIL GOES HERE") {
         exit
     } else {
