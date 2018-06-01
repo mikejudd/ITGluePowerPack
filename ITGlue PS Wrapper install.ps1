@@ -48,5 +48,17 @@ Write-Host "Exporting settings... " -NoNewline
 Export-ITGlueModuleSettings
 Write-Host 'Complete!'
 
+$utf8fix = @'
+$ITGlue_Headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+$ITGlue_Headers.Add("Content-Type", 'application/vnd.api+json; charset=utf-8')
+
+Set-Variable -Name "ITGlue_Headers"  -Value $ITGlue_Headers -Scope global
+
+
+Import-ITGlueModuleSettings
+'@
+$utf8fix > "$env:ProgramFiles\WindowsPowerShell\Modules\ITGlueAPI\ITGlueAPI.psm1"
+
+
 Write-Host -NoNewLine "Done, press any key to exit..."
 $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') > $null
