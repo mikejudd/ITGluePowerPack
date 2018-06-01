@@ -2,10 +2,11 @@ param (
     [int]$organisationid,
     [string]$path = "$env:USERPROFILE\UpstreamPowerPack",
     [string]$username,
-    [string]$password
+    [string]$password,
+    [switch]$savecreds
 )
 
-if(-not (Test-Path -path $path\o365credentials.xml)) {
+if(-not (Test-Path -path $path\o365credentials.xml) -and $username -eq $null) {
     # If you did not save your Office 365 credentials via installation script, you need to enter them here.
     ####
     $username = "YOUR OFFICE 365 EMAIL GOES HERE"
@@ -23,7 +24,17 @@ if(-not (Test-Path -path $path\o365credentials.xml)) {
     }
 
 } else {
-    $credential = Import-CliXML -Path $path\o365credentials.xml
+    if($username) {
+        $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $password,(ConvertTo-SecureString -AsPlainText $password -Force)
+        if($savecreds) {
+            $credentials | Export-Clixml -Path $path\o365credentials.xml
+        }
+
+
+    } else {
+        $credential = Import-CliXML -Path $path\o365credentials.xml
+    }
+
     Connect-AzureAD -Credential $credential > $null
 }
 
